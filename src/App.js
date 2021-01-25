@@ -18,36 +18,43 @@ function App() {
   }, [])
 
   const handleChange = e => {
-    setSearch(e.target.value)
-  }
+    setSearch(e.target.value);
+  };
 
   // Function to filter the actual coins
-  const filteredCoins = coins.filter(coin => 
+  const filteredCoins = coins.filter(coin =>
     coin.name.toLowerCase().includes(search.toLowerCase())
-    )
-
-  return (
-    <div className="coin-app">
-      <h1>Crypto Tracker App</h1>
-       <div className='coin-search'>
-         <h1 className='coin-text'>Search currency</h1>
-         <form>
-           <input type='text' placeholder='Search'
-           className='coin-input' onChange={handleChange}/>
-         </form>
-       </div>
-       {filteredCoins.map(coin => {
-         return (
-           <Coin key={coin.id} name={coin.name} 
-           image={coin.image} symbol={coin.symbol} 
-           volume={coin.market_cap}
-           price={coin.current_price} />
-         )
-       })}
-    </div>
-
-
   );
-}
+
+    return (
+      <div className='coin-app'>
+        <div className='coin-search'>
+          <h1 className='coin-text'>Search a currency</h1>
+          <form>
+            <input
+              className='coin-input'
+              type='text'
+              onChange={handleChange}
+              placeholder='Search'
+            />
+          </form>
+        </div>
+        {filteredCoins.map(coin => {
+          return (
+            <Coin
+              key={coin.id}
+              name={coin.name}
+              price={coin.current_price}
+              symbol={coin.symbol}
+              marketcap={coin.total_volume}
+              volume={coin.market_cap}
+              image={coin.image}
+              priceChange={coin.price_change_percentage_24h}
+            />
+          );
+        })}
+      </div>
+    );
+  }
 
 export default App;
